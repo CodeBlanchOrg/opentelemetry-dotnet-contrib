@@ -5,14 +5,17 @@
 * **Breaking Change**: Renamed package from `OpenTelemetry.ResourceDetectors.Host`
   to `OpenTelemetry.Resources.Host`.
   ([#1820](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/pull/1820))
+
 * **Breaking Change**: `HostDetector` type is now internal, use `ResourceBuilder`
   extension method `AddHostDetector` to enable the detector.
   ([#1820](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/pull/1820))
+
 * Adds support for `host.id` resource attribute on non-containerized systems.
 `host.id` will be set per [semantic convention rules](https://github.com/open-telemetry/semantic-conventions/blob/v1.24.0/docs/resource/host.md)
   ([#1631](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/pull/1631))
-* Update OpenTelemetry SDK version to `1.8.1`.
-  ([#1668](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/pull/1668))
+
+* Updated OpenTelemetry core component version(s) to `1.9.0`.
+  ([#2](https://github.com/CodeBlanchOrg/opentelemetry-dotnet-contrib/pull/2))
 
 ## 0.1.0-alpha.3
 
