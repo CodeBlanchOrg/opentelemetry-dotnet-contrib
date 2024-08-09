@@ -5,8 +5,8 @@
 * `ActivitySource.Version` is set to NuGet package version.
   ([#1624](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/pull/1624))
 
-* Updated OpenTelemetry core component version(s) to `1.9.0`.
-  ([#1888](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/pull/1888))
+* Updated OpenTelemetry core component version(s) to `1.10.0`.
+  ([#26](https://github.com/CodeBlanchOrg/opentelemetry-dotnet-contrib/pull/26))
 
 ## 1.0.0-beta.1
 

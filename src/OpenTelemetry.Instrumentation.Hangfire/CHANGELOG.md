@@ -8,8 +8,8 @@
 * Update `Microsoft.Extensions.Options` to `8.0.0`.
   ([#1830](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/pull/1830))
 
-* Updated OpenTelemetry core component version(s) to `1.9.0`.
-  ([#1888](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/pull/1888))
+* Updated OpenTelemetry core component version(s) to `1.10.0`.
+  ([#26](https://github.com/CodeBlanchOrg/opentelemetry-dotnet-contrib/pull/26))
 
 ## 1.6.0-beta.1
 
