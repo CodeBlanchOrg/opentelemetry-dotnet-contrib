@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.20.0
+
+Released 2024-Sep-28
+
 ## 1.10.0-alpha.1
 
 Released 2024-Sep-06
