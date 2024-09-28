@@ -15,7 +15,8 @@ components:
     - zivaninstana
   src/OpenTelemetry.Exporter.OneCollector/:
     - codeblanch
-    - reyang
+    - codeblanchtest1
+    - codeblanchtest2
   src/OpenTelemetry.Exporter.Stackdriver/:
     - SergeyKanzhelev
   src/OpenTelemetry.Extensions/:
