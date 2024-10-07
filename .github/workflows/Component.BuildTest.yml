@@ -95,11 +95,11 @@ jobs:
 
     - if: inputs.require-elevated == false || matrix.os == 'windows-latest'
       name: dotnet test ${{ steps.resolve-project.outputs.title }}
-      run: dotnet test ${{ steps.resolve-project.outputs.project }} --collect:"Code Coverage" --results-directory:TestResults --framework ${{ matrix.version }} --configuration Release --no-restore --no-build --logger:"console;verbosity=detailed" --filter ${{ inputs.test-case-filter }} -- RunConfiguration.DisableAppDomain=true
+      run: dotnet test ${{ steps.resolve-project.outputs.project }} --collect:"Code Coverage" --results-directory:TestResults --framework ${{ matrix.version }} --configuration Release --no-restore --no-build --logger:"console;verbosity=detailed" --filter "${{ inputs.test-case-filter }}" -- RunConfiguration.DisableAppDomain=true
 
     - if: inputs.require-elevated == true && matrix.os != 'windows-latest'
       name: dotnet test ${{ steps.resolve-project.outputs.title }}
-      run: sudo dotnet test ${{ steps.resolve-project.outputs.project }} --collect:"Code Coverage" --results-directory:TestResults --framework ${{ matrix.version }} --configuration Release --no-restore --no-build --logger:"console;verbosity=detailed" --filter ${{ inputs.test-case-filter }} -- RunConfiguration.DisableAppDomain=true
+      run: sudo dotnet test ${{ steps.resolve-project.outputs.project }} --collect:"Code Coverage" --results-directory:TestResults --framework ${{ matrix.version }} --configuration Release --no-restore --no-build --logger:"console;verbosity=detailed" --filter "${{ inputs.test-case-filter }}" -- RunConfiguration.DisableAppDomain=true
 
     - name: dotnet pack ${{ steps.resolve-project.outputs.title }}
       if: ${{ matrix.os == 'windows-latest' }}
