@@ -110,6 +110,7 @@ jobs:
       tfm-list: '[ "net8.0" ]'
       test-case-filter: CategoryName=Geneva:user_events:metrics
       test-require-elevated: true
+      pack: false
 
   build-test-exporter-influxdb:
     needs: detect-changes
