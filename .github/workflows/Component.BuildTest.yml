@@ -24,7 +24,7 @@ on:
       test-case-filter:
         required: false
         type: string
-      require-elevated:
+      test-require-elevated:
         default: false
         required: false
         type: boolean
@@ -95,19 +95,19 @@ jobs:
 
     - name: dotnet test ${{ steps.resolve-project.outputs.title }}
       run: |
-        ${{ inputs.require-elevated == true && matrix.os != 'windows-latest' && 'sudo -E \' || '' }}
+        ${{ inputs.test-require-elevated == true && matrix.os != 'windows-latest' && 'sudo -E \' || '' }}
           dotnet test ${{ steps.resolve-project.outputs.project }} \
             --collect:"Code Coverage" \
             --results-directory:TestResults \
             --framework ${{ matrix.version }} \
             --configuration Release \
             --no-restore \
-            --no-build
+            --no-build \
             --logger:"console;verbosity=detailed" \
             --filter "${{ inputs.test-case-filter }}" \
             -- RunConfiguration.DisableAppDomain=true
 
-        ${{ inputs.require-elevated == true && matrix.os != 'windows-latest' && 'chmod +r ./TestResults/Cobertura.xml' || '' }}
+        ${{ inputs.test-require-elevated == true && matrix.os != 'windows-latest' && 'sudo chmod +r ./TestResults/Cobertura.xml' || '' }}
 
     - name: dotnet pack ${{ steps.resolve-project.outputs.title }}
       if: ${{ matrix.os == 'windows-latest' }}

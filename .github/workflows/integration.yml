@@ -34,13 +34,3 @@ jobs:
       - name: Run kafka docker compose
         run: docker compose --file=test/OpenTelemetry.Instrumentation.ConfluentKafka.Tests/docker-compose.yml --file=build/docker-compose.${{ matrix.version }}.yml --project-directory=. up --exit-code-from=tests --build
 
-  geneva-integration-test:
-    if: inputs.job == 'all' || inputs.job == 'geneva-integration-test'
-    uses: ./.github/workflows/Component.BuildTest.yml
-    with:
-      project-name: Component[OpenTelemetry.Exporter.Geneva]
-      code-cov-name: Exporter.Geneva
-      os-list: '[ "ubuntu-latest" ]'
-      tfm-list: '[ "net8.0" ]'
-      test-case-filter: CategoryName=Geneva:user_events:metrics
-      require-elevated: true
