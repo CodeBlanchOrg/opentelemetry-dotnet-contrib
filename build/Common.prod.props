@@ -38,14 +38,14 @@
       <!-- Note: If MinVerVersion is set to the default value we disable
       PackageValidation because this most likely means we are running on a fork
       without a valid tag to use for versioning and it will fail. -->
-      <EnablePackageValidation Condition="'$(MinVerVersion)' == '0.0.0-alpha.0'">false</EnablePackageValidation>
+      <EnablePackageValidation Condition="$(MinVerVersion.StartsWith('0.0.0-alpha.0')">false</EnablePackageValidation>
     </PropertyGroup>
 
     <!-- Note: The '$(TargetFramework)' != '' check here is to reduce log spam
     in builds like dotnet pack which fire MinVer but don't resolve the actual
     TargetFramework -->
     <Message
-      Condition="'$(TargetFramework)' != '' AND '$(BuildNumber)' == ''"
+      Condition="'$(TargetFramework)' != '' AND '$(BuildNumber)' != ''"
       Importance="high"
       Text="**AssemblyVersionDebug** TargetFramework: $(TargetFramework), MinVerVersion: $(MinVerVersion), BuildNumber: $(BuildNumber), AssemblyVersion: $(AssemblyVersion), FileVersion: $(FileVersion)" />
   </Target>
