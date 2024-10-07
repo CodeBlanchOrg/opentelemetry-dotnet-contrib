@@ -33,4 +33,3 @@ jobs:
 
       - name: Run kafka docker compose
         run: docker compose --file=test/OpenTelemetry.Instrumentation.ConfluentKafka.Tests/docker-compose.yml --file=build/docker-compose.${{ matrix.version }}.yml --project-directory=. up --exit-code-from=tests --build
-

@@ -98,20 +98,20 @@ jobs:
       run: dotnet build ${{ steps.resolve-project.outputs.project }} --configuration Release --no-restore
 
     - name: dotnet test ${{ steps.resolve-project.outputs.title }}
-      run: |
-        ${{ inputs.test-require-elevated == true && matrix.os != 'windows-latest' && 'sudo -E \' || '' }}
-          dotnet test ${{ steps.resolve-project.outputs.project }} \
-            --collect:"Code Coverage" \
-            --results-directory:TestResults \
-            --framework ${{ matrix.version }} \
-            --configuration Release \
-            --no-restore \
-            --no-build \
-            --logger:"console;verbosity=detailed" \
-            --filter "${{ inputs.test-case-filter }}" \
+      run: >
+        ${{ inputs.test-require-elevated == true && matrix.os != 'windows-latest' && 'sudo -E' || '' }}
+          dotnet test ${{ steps.resolve-project.outputs.project }}
+            --collect:"Code Coverage"
+            --results-directory:TestResults
+            --framework ${{ matrix.version }}
+            --configuration Release
+            --no-restore
+            --no-build
+            --logger:"console;verbosity=detailed"
+            --filter "${{ inputs.test-case-filter }}"
             -- RunConfiguration.DisableAppDomain=true
 
-        ${{ inputs.test-require-elevated == true && matrix.os != 'windows-latest' && 'sudo find . -name "./TestResults/**/*.coverage" -exec chmod +r {} +' || '' }}
+        ${{ inputs.test-require-elevated == true && matrix.os != 'windows-latest' && '&& find . -name "./TestResults/**/*.coverage" -exec chmod g+r {} +' || '' }}
 
     - name: dotnet pack ${{ steps.resolve-project.outputs.title }}
       if: ${{ matrix.os == 'windows-latest' && inputs.pack == true }}
