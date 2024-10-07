@@ -21,6 +21,13 @@ on:
         default: '[ "net462", "net6.0", "net8.0" ]'
         required: false
         type: string
+      test-case-filter:
+        required: false
+        type: string
+      require-elevated:
+        default: false
+        required: false
+        type: boolean
 
 jobs:
   build-test:
@@ -86,8 +93,13 @@ jobs:
     - name: dotnet build ${{ steps.resolve-project.outputs.title }}
       run: dotnet build ${{ steps.resolve-project.outputs.project }} --configuration Release --no-restore
 
-    - name: dotnet test ${{ steps.resolve-project.outputs.title }}
-      run: dotnet test ${{ steps.resolve-project.outputs.project }} --collect:"Code Coverage" --results-directory:TestResults --framework ${{ matrix.version }} --configuration Release --no-restore --no-build --logger:"console;verbosity=detailed" -- RunConfiguration.DisableAppDomain=true
+    - if: inputs.require-elevated == false || matrix.os == 'windows-latest'
+      name: dotnet test ${{ steps.resolve-project.outputs.title }}
+      run: dotnet test ${{ steps.resolve-project.outputs.project }} --collect:"Code Coverage" --results-directory:TestResults --framework ${{ matrix.version }} --configuration Release --no-restore --no-build --logger:"console;verbosity=detailed" --TestCaseFilter:${{ inputs.test-case-filter }} -- RunConfiguration.DisableAppDomain=true
+
+    - if: inputs.require-elevated == true && matrix.os != 'windows-latest'
+      name: dotnet test ${{ steps.resolve-project.outputs.title }}
+      run: sudo dotnet test ${{ steps.resolve-project.outputs.project }} --collect:"Code Coverage" --results-directory:TestResults --framework ${{ matrix.version }} --configuration Release --no-restore --no-build --logger:"console;verbosity=detailed" --TestCaseFilter:${{ inputs.test-case-filter }} -- RunConfiguration.DisableAppDomain=true
 
     - name: dotnet pack ${{ steps.resolve-project.outputs.title }}
       if: ${{ matrix.os == 'windows-latest' }}

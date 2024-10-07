@@ -96,6 +96,16 @@ jobs:
       project-name: Component[OpenTelemetry.Exporter.Geneva]
       code-cov-name: Exporter.Geneva
 
+  build-test-exporter-geneva-integration:
+    needs: detect-changes
+    if: |
+      contains(needs.detect-changes.outputs.changes, 'exporter-geneva')
+      || contains(needs.detect-changes.outputs.changes, 'build')
+      || contains(needs.detect-changes.outputs.changes, 'shared')
+    uses: ./.github/workflows/integration.yml
+    with:
+      job: geneva-integration-test
+
   build-test-exporter-influxdb:
     needs: detect-changes
     if: |
@@ -593,6 +603,7 @@ jobs:
       lint-yml,
       lint-dotnet-format,
       build-test-exporter-geneva,
+      build-test-exporter-geneva-integration,
       build-test-exporter-influxdb,
       build-test-exporter-instana,
       build-test-exporter-onecollector,
