@@ -106,7 +106,7 @@ jobs:
     with:
       project-name: Component[OpenTelemetry.Exporter.Geneva]
       code-cov-name: Exporter.Geneva
-      os-list: '[ "ubuntu-20.04" ]'
+      os-list: '[ "ubuntu-latest" ]'
       tfm-list: '[ "net8.0" ]'
       test-case-filter: CategoryName=Geneva:user_events:metrics
       test-require-elevated: true
