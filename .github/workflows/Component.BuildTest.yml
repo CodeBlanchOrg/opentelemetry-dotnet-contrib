@@ -110,7 +110,7 @@ jobs:
         --logger:"console;verbosity=detailed"
         --filter "${{ inputs.test-case-filter }}"
         -- RunConfiguration.DisableAppDomain=true
-        ${{ inputs.test-require-elevated == true && matrix.os != 'windows-latest' && '&& find . -name "./TestResults/**/*.coverage" -exec chmod a+r {} +' || '' }}
+        ${{ inputs.test-require-elevated == true && matrix.os != 'windows-latest' && '&& sudo find . -name "./TestResults/**/*.coverage" -exec chmod a+r {} +' || '' }}
 
     - name: dotnet pack ${{ steps.resolve-project.outputs.title }}
       if: ${{ matrix.os == 'windows-latest' && inputs.pack == true }}
