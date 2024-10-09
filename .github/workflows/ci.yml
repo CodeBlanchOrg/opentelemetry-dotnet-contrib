@@ -2,7 +2,7 @@ name: Build
 
 on:
   pull_request:
-    branches: [ 'main*', 'instrumentation*', 'exporter*', 'extensions*' ]
+    branches: [ 'main*', 'instrumentation*', 'exporter*', 'extensions*', '*' ]
 
 jobs:
   lint-misspell-sanitycheck:
@@ -95,6 +95,22 @@ jobs:
     with:
       project-name: Component[OpenTelemetry.Exporter.Geneva]
       code-cov-name: Exporter.Geneva
+
+  build-test-exporter-geneva-integration:
+    needs: detect-changes
+    if: |
+      contains(needs.detect-changes.outputs.changes, 'exporter-geneva')
+      || contains(needs.detect-changes.outputs.changes, 'build')
+      || contains(needs.detect-changes.outputs.changes, 'shared')
+    uses: ./.github/workflows/Component.BuildTest.yml
+    with:
+      project-name: Component[OpenTelemetry.Exporter.Geneva]
+      code-cov-name: Exporter.Geneva
+      os-list: '[ "ubuntu-latest" ]'
+      tfm-list: '[ "net8.0" ]'
+      test-case-filter: CategoryName=Geneva:user_events:metrics
+      test-require-elevated: true
+      pack: false
 
   build-test-exporter-influxdb:
     needs: detect-changes
@@ -593,6 +609,7 @@ jobs:
       lint-yml,
       lint-dotnet-format,
       build-test-exporter-geneva,
+      build-test-exporter-geneva-integration,
       build-test-exporter-influxdb,
       build-test-exporter-instana,
       build-test-exporter-onecollector,
